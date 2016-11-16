@@ -15,8 +15,6 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->assertTrue(false);
-
         $user = factory(\App\User::class)->create([
             'name' => 'Duilio Palacios',
             'email' => 'admin@styde.net',
