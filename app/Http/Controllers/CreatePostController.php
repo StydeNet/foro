@@ -14,6 +14,8 @@ class CreatePostController extends Controller
 
     public function store(Request $request)
     {
+        //@todo: add validation!
+
         $post = new Post($request->all());
 
         auth()->user()->posts()->save($post);
