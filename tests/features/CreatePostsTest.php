@@ -22,6 +22,7 @@ class CreatePostsTest extends FeatureTestCase
             'content' => $content,
             'pending' => true,
             'user_id' => $user->id,
+            'slug' => 'esta-es-una-pregunta',
         ]);
 
         // Test a user is redirected to the posts details after creating it.
