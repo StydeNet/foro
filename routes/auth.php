@@ -18,3 +18,8 @@ Route::post('posts/{post}/comment', [
     'uses' => 'CommentController@store',
     'as' => 'comments.store',
 ]);
+
+Route::post('comments/{comment}/accept', [
+    'uses' => 'CommentController@accept',
+    'as' => 'comments.accept',
+]);
