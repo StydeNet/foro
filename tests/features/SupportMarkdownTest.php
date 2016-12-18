@@ -53,4 +53,57 @@ class SupportMarkdownTest extends FeatureTestCase
         $this->visit($post->url)
             ->dontSee($xssAttack);
     }
+
+    function test_the_post_comment_support_markdown()
+    {
+        $importantComment = 'Un comentario muy importante';
+
+        $comment = $this->createComment([
+            'comment' => "La primera parte del comentario. **$importantComment**. La última parte del comentario"
+        ]);
+
+        $this->visit($comment->post->url)
+            ->seeInElement('strong', $importantComment);
+    }
+
+    function test_the_code_in_the_comment_is_escaped()
+    {
+        $code = "<script>alert('Sharing code')</script>";
+
+        $comment = $this->createComment([
+            'comment' => "`$code`. Texto normal."
+        ]);
+
+        $this->visit($comment->post->url)
+            ->dontSee($code)
+            ->seeText('Texto normal')
+            ->seeText($code);
+    }
+
+    function test_comment_xss_attack()
+    {
+        $xssAttack = "<script>alert('Malicious JS!')</script>";
+
+        $comment = $this->createComment([
+            'comment' => "$xssAttack. Texto normal."
+        ]);
+
+        $this->visit($comment->post->url)
+            ->dontSee($xssAttack)
+            ->seeText('Texto normal')
+            ->seeText($xssAttack); //todo: fix this!
+    }
+
+    function test_comment_xss_attack_with_html()
+    {
+        $xssAttack = "<img src='img.jpg'>";
+
+        $comment = $this->createComment([
+            'comment' => "$xssAttack. Texto normal."
+        ]);
+
+        $this->visit($comment->post->url)
+            ->dontSee($xssAttack);
+    }
+
 }
