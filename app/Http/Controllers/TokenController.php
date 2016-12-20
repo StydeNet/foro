@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\{User, Token};
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class TokenController extends Controller
 {
     public function create()
     {
