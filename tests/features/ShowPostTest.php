@@ -6,7 +6,8 @@ class ShowPostTest extends FeatureTestCase
     {
         // Having
         $user = $this->defaultUser([
-            'name' => 'Duilio Palacios',
+            'first_name' => 'Duilio',
+            'last_name' => 'Palacios',
         ]);
 
         $post = $this->createPost([

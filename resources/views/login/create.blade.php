@@ -5,24 +5,24 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Registro de usuario</div>
+                <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
+
+                        {!! Alert::render() !!}
 
                         {!! Field::email('email') !!}
 
-                        {!! Field::text('username') !!}
-
-                        {!! Field::text('first_name') !!}
-
-                        {!! Field::text('last_name') !!}
-
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Regístrate
+                                    Solicitar token
                                 </button>
+
+                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                                    Forgot Your Password?
+                                </a>
                             </div>
                         </div>
                     </form>
