@@ -31,14 +31,15 @@ class PostIntegrationTest extends TestCase
         */
     }
 
-    function test_generated_url_of_post_shows_the_post()
+    function test_the_url_of_the_post_is_generated()
     {
         $user = $this->defaultUser();
         $post = factory(Post::class)->make();
         $user->posts()->save($post);
 
-        $this->visit($post->url)
-            ->seePageIs($post->url)
-            ->see($post->title);
+        $this->assertSame(
+            $post->url,
+            route('posts.show', [$post->id, $post->slug])
+        );
     }
 }
