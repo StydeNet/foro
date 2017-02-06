@@ -11,9 +11,14 @@ Route::post('register', [
 
 Route::get('login', [
     'uses' => 'TokenController@create',
-    'as' => 'login',
+    'as' => 'token',
 ]);
 
 Route::post('login', [
     'uses' => 'TokenController@store',
+]);
+
+Route::get('login/{token}', [
+    'uses' => 'LoginController@login',
+    'as' => 'login',
 ]);

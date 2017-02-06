@@ -13,7 +13,7 @@ class RequestTokenTest extends FeatureTestCase
         $user = $this->defaultUser(['email' => 'admin@styde.net']);
 
         // When
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->type('admin@styde.net', 'email')
             ->press('Solicitar token');
 
@@ -38,7 +38,7 @@ class RequestTokenTest extends FeatureTestCase
         Mail::fake();
 
         // When
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->press('Solicitar token');
 
         // Then: a new token is NOT created in the database
@@ -59,7 +59,7 @@ class RequestTokenTest extends FeatureTestCase
     function test_a_guest_user_can_request_a_token_an_invalid_email()
     {
         // When
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->type('Silence', 'email')
             ->press('Solicitar token');
 
@@ -73,7 +73,7 @@ class RequestTokenTest extends FeatureTestCase
         $this->defaultUser(['email' => 'admin@styde.net']);
 
         // When
-        $this->visitRoute('login')
+        $this->visitRoute('token')
             ->type('silence@styde.net', 'email')
             ->press('Solicitar token');
 

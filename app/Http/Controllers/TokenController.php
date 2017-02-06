@@ -9,7 +9,7 @@ class TokenController extends Controller
 {
     public function create()
     {
-        return view('login.create');
+        return view('token.create');
     }
 
     public function store(Request $request)
