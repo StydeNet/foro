@@ -23,8 +23,8 @@ class RequestTokenTest extends FeatureTestCase
         $this->assertNotNull($token, 'A token was not created');
 
         // And sent to the user
-        Mail::assertSentTo($user, \App\Mail\TokenMail::class, function ($mail) use ($token) {
-            return $mail->token->id === $token->id;
+        Mail::assertSent(\App\Mail\TokenMail::class, function ($mail) use ($token, $user) {
+            return $mail->hasTo($user) && $mail->token->id === $token->id;
         });
 
         $this->dontSeeIsAuthenticated();
