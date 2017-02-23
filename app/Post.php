@@ -8,7 +8,7 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'category_id'];
 
     protected $casts = [
         'pending' => 'boolean'

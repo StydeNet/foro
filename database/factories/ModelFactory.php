@@ -29,6 +29,9 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(\App\User::class)->create()->id;
         },
+        'category_id' => function () {
+            return factory(\App\Category::class)->create()->id;
+        },
     ];
 });
 
@@ -41,5 +44,14 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(\App\User::class)->create()->id;
         },
+    ];
+});
+
+$factory->define(App\Category::class, function (Faker\Generator $faker) {
+    $name = $faker->unique()->sentence;
+
+    return [
+        'name' => $name,
+        'slug' => str_slug($name),
     ];
 });
