@@ -30,4 +30,19 @@ class PostIntegrationTest extends TestCase
                 $this->assertSame('como-instalar-laravel', $post->slug);
         */
     }
+
+    function test_getUrlAttribute_is_returning_the_correct_url()
+    {
+        //Having ... a post stored in DB
+        $user = $this->defaultUser();
+        $post = factory(\App\Post::class)->make();
+        $user->posts()->save($post);
+
+        //When ... getUrlAttribute accesor is called by $post->url
+        //Then ... it must return the correct url of the post
+        $this->assertSame(
+            $post->url,
+            route('posts.show', [$post->id, $post->slug])
+        );
+    }
 }
