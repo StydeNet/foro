@@ -35,14 +35,17 @@ class PostIntegrationTest extends TestCase
     {
         //Having ... a post stored in DB
         $user = $this->defaultUser();
-        $post = factory(\App\Post::class)->make();
+        $post = factory(\App\Post::class)->make([
+            'id' => 13,
+            'title' => "TDD with laravel 5.3"
+        ]);
         $user->posts()->save($post);
 
         //When ... getUrlAttribute accesor is called by $post->url
         //Then ... it must return the correct url of the post
         $this->assertSame(
             $post->url,
-            route('posts.show', [$post->id, $post->slug])
+            url("posts/13-tdd-with-laravel-53")
         );
     }
 }
