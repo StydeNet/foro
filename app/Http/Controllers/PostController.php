@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Post;
+use App\Category;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Category $category = null)
+    public function index(Category $category = null, Request $request)
     {
         $posts = Post::orderBy('created_at', 'DESC')
-            ->category($category)
+            ->scopes($this->getListScopes($category, $request))
             ->paginate();
 
         $categoryItems = $this->getCategoryItems();
@@ -35,5 +36,26 @@ class PostController extends Controller
                 'full_url' => route('posts.index', $category)
             ];
         })->toArray();
+    }
+
+    protected function getListScopes(Category $category, Request $request)
+    {
+        $scopes = [];
+
+        if ($category->exists) {
+            $scopes['category'] = [$category];
+        }
+
+        $routeName = $request->route()->getName();
+
+        if ($routeName == 'posts.pending') {
+            $scopes[] = 'pending';
+        }
+
+        if ($routeName == 'posts.completed') {
+            $scopes[] = 'completed';
+        }
+
+        return $scopes;
     }
 }

@@ -46,6 +46,16 @@ class Post extends Model
         }
     }
 
+    public function scopePending($query)
+    {
+        $query->where('pending', true);
+    }
+
+    public function scopeCompleted($query)
+    {
+        $query->where('pending', false);
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
