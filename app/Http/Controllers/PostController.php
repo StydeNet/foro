@@ -14,7 +14,7 @@ class PostController extends Controller
             ->scopes($this->getListScopes($category, $request))
             ->paginate();
 
-        $categoryItems = $this->getCategoryItems();
+        $categoryItems = $this->getCategoryItems($request);
 
         return view('posts.index', compact('posts', 'category', 'categoryItems'));
     }
@@ -28,12 +28,12 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    protected function getCategoryItems()
+    protected function getCategoryItems(Request $request)
     {
-        return Category::orderBy('name')->get()->map(function ($category) {
+        return Category::orderBy('name')->get()->map(function ($category) use ($request) {
             return [
                 'title' => $category->name,
-                'full_url' => route('posts.index', $category)
+                'full_url' => route($request->route()->getName(), $category)
             ];
         })->toArray();
     }
