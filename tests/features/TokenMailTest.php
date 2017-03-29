@@ -22,8 +22,10 @@ class TokenMailTest extends FeatureTestCase
             'user' => $user,
         ]);
 
+        $token_url = route('login', ['token' => $token->token]);
+        
         $this->open(new \App\Mail\TokenMail($token))
-            ->seeLink($token->url, $token->url);
+            ->seeLink($token_url, $token_url);
     }
     
     protected function open(\Illuminate\Mail\Mailable $mailable)
