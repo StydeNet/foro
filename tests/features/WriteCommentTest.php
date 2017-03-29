@@ -25,4 +25,18 @@ class WriteCommentTest extends FeatureTestCase
 
         $this->seePageIs($post->url);
     }
+
+    function test_create_comment_form_validation(){
+        $post = $this->createPost();
+
+        $user = $this->defaultUser();
+
+        $this->actingAs($user)
+            ->visit($post->url)
+            ->press('Publicar comentario')
+            ->seePageIs($post->url)
+            ->seeErrors([
+                'comment' => 'El campo comentario es obligatorio',
+            ]);
+    }
 }
