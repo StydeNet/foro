@@ -14,4 +14,18 @@ class PostsListTest extends FeatureTestCase
             ->click($post->title)
             ->seePageIs($post->url);
     }
+
+    function test_a_user_can_see_posts_paginated()
+    {
+        $post = $this->createPost([
+            'title' => 'Crea una aplicación con Laravel 5.3'
+        ]);
+
+        factory(App\Post::class, 20)->create();
+
+        $this->visit('/')
+            ->see($post->title)
+            ->click('2')
+            ->dontSee($post->title);
+    }
 }
