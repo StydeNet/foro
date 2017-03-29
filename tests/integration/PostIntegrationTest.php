@@ -30,4 +30,16 @@ class PostIntegrationTest extends TestCase
                 $this->assertSame('como-instalar-laravel', $post->slug);
         */
     }
+
+    function test_the_url_of_the_post_is_generated()
+    {
+        $user = $this->defaultUser();
+        $post = factory(Post::class)->make();
+        $user->posts()->save($post);
+
+        $this->assertSame(
+            $post->url,
+            route('posts.show', [$post->id, $post->slug])
+        );
+    }
 }
