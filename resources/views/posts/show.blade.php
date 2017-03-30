@@ -42,9 +42,8 @@
 
             @foreach($post->latestComments as $comment)
                 <article class="{{ $comment->answer ? 'answer' : '' }}">
-                    {{-- todo: support markdown in the comments as well! --}}
 
-                    {{ $comment->comment }}
+                    {!! $comment->safe_html_content !!}
 
                     @if(Gate::allows('accept', $comment) && !$comment->answer)
                         {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}
