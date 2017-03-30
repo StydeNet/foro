@@ -1,5 +1,5 @@
 <?php
-
+use App\Comment;
 class SupportMarkdownTest extends FeatureTestCase
 {
     function test_the_post_content_support_markdown()
@@ -52,5 +52,55 @@ class SupportMarkdownTest extends FeatureTestCase
 
         $this->visit($post->url)
             ->dontSee($xssAttack);
+    }
+
+    function test_xss_attack_on_comment()
+    {
+        $xssAttack = "<script>alert('malicious JS!')</script>";
+
+        $post = $this->createPost([
+            'content' => "$xssAttack. Normal Text"
+        ]);
+
+        $comment = factory(Comment::class)->create([
+            'post_id' => $post->id,
+            'comment' => "$xssAttack. Normal Comment"
+        ]);
+
+
+
+        $this->visit($post->url)->dontSee($xssAttack)->seeText('Normal Comment')->seeText($xssAttack);
+    }
+
+    function test_the_code_in_the_comment_is_scaped()
+    {
+        $xssAttack = "<script>alert('malicious JS!')</script>";
+
+        $post = $this->createPost([
+            'content' => "`$xssAttack. Normal Text"
+        ]);
+
+        factory(Comment::class)->create([
+            'post_id' => $post->id, 
+            'comment' => "$xssAttack. Normal Comment"
+        ]);
+
+        $this->visit($post->url)->dontSee($xssAttack)->seeText('Normal Comment');
+    }
+
+    function test_xss_attack_with_html_on_comment()
+    {
+        $xssAttack = "<img src='#' alt='Malicious' />";
+
+        $post = $this->createPost([
+            'content' => "$xssAttack. Normal Text"
+        ]);
+
+        factory(Comment::class)->create([
+            'post_id' => $post->id,
+            'comment' => "$xssAttack. Normal Comment"
+        ]);
+
+        $this->visit($post->url)->dontSee($xssAttack)->seeText('Normal Comment');
     }
 }
