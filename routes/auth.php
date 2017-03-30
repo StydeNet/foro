@@ -35,3 +35,7 @@ Route::delete('posts/{post}/subscribe', [
     'as' => 'posts.unsubscribe'
 ]);
 
+Route::get('mis-posts/{category?}', [
+    'uses' => 'ListPostController',
+    'as' => 'posts.mine',
+]);
