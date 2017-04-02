@@ -25,7 +25,7 @@ class Post extends Model
 
     public function latestComments()
     {
-        return $this->comments()->orderBy('created_at', 'DESC');
+        return $this->comments()->orderBy('created_at', 'DESC')->paginate();
     }
 
     public function setTitleAttribute($value)
