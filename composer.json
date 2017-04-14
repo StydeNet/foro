@@ -29,6 +29,7 @@
     },
     "autoload-dev": {
         "classmap": [
+            "database/factory-classes",
             "tests/TestCase.php",
             "tests/FeatureTestCase.php"
         ],

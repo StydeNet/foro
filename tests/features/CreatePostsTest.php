@@ -12,7 +12,7 @@ class CreatePostsTest extends FeatureTestCase
 
         $this->actingAs($user = $this->defaultUser());
 
-        $category = factory(\App\Category::class)->create();
+        $category = CategoryFactory::create();
 
         // When
         $this->visit(route('posts.create'))
