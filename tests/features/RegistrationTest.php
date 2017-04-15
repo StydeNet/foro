@@ -39,11 +39,39 @@ class RegistrationTest extends FeatureTestCase
         });
 
         //todo: finish this feature!
-        return;
 
         $this->seeRouteIs('register_confirmation')
             ->see('Gracias por registrarte')
             ->see('Enviamos a tu email un enlace para que inicies sesión');
+    }
+
+    function test_registration_fields_are_validated()
+    {
+        $this->visitRoute('register')
+            ->type('vpwejvqpeovqv', 'email')
+            ->press('Regístrate')
+            ->seePageIs('register')
+            ->seeErrors([
+                'email' => 'Dirección de correo inválida',
+                'username' => 'El campo usuario es obligatorio',
+                'first_name' => 'El campo nombre es obligatorio',
+                'last_name' => 'El campo apellido es obligatorio',
+            ]);
+    }
+
+    function test_a_guest_can_not_register_the_same_email()
+    {
+        factory(User::class)->create([
+            'email' => 'admin@styde.net'
+        ]);
+
+        $this->visitRoute('register')
+            ->type('admin@styde.net', 'email')
+            ->press('Regístrate')
+            ->seePageIs('register')
+            ->seeErrors([
+                'email' => 'Este correo electrónico ya existe.'
+            ]);
     }
 }
 
