@@ -10,8 +10,8 @@ class PostFactory extends Factory
             'title' => $this->sentence,
             'content' => $this->paragraph,
             'pending' => true,
-            'user_id' => UserFactory::id(),
-            'category_id' => CategoryFactory::id(),
+            'user_id' => UserFactory::lazy()->create(),
+            'category_id' => CategoryFactory::lazy()->create(),
         ];
     }
 }

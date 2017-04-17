@@ -27,13 +27,6 @@ class FactoryBuilder
         return $this->factory->create($attributes);
     }
 
-    public function id()
-    {
-        return function () {
-            return $this->create()->id;
-        };
-    }
-
     public function attributes($param)
     {
         if (is_array($param)) {

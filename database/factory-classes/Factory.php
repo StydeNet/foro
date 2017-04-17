@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\FactoryBuilder;
 
 class Factory
 {
@@ -17,13 +18,21 @@ class Factory
 
     public function __construct()
     {
-        static::$factory->define($this->model(), function (Faker $faker) {
-            $this->faker = $faker;
+        $this->faker = app(Faker::class);
 
-            return $this->data($faker);
-        });
+        $definitions = [
+            $this->model() => [
+                'default' => function (Faker $faker) {
+                    return $this->data($faker);
+                }
+            ]
+        ];
 
-        $this->builder = new FactoryBuilder($this);
+        $states = [];
+
+        $this->builder = new FactoryBuilder(
+            $this->model(), 'default', $definitions, $states, $this->faker
+        );
     }
 
     public function model()

@@ -8,8 +8,8 @@ class CommentFactory extends Factory
     {
         return [
             'comment' => $this->paragraph,
-            'post_id' => PostFactory::id(),
-            'user_id' => UserFactory::id(),
+            'post_id' => PostFactory::lazy()->create(),
+            'user_id' => UserFactory::lazy()->create(),
         ];
     }
 }

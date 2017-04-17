@@ -135,7 +135,7 @@ class PostsListTest extends FeatureTestCase
             'created_at' => Carbon::now()->subDays(2)
         ]);
 
-        $posts = PostFactory::create(15, [
+        $posts = PostFactory::times(15)->create([
             'created_at' => Carbon::now()->subDay()
         ]);
 
