@@ -6,67 +6,33 @@ class Factory
 {
     public static $factory;
 
-    public static $currentStates = [];
-
     /**
     * @var \Faker\Generator $faker
     */
     public $faker;
 
-    public static function create(...$params)
+    protected $model;
+
+    protected $builder;
+
+    public function __construct()
     {
-        $modelFactory = new static;
+        static::$factory->define($this->model(), function (Faker $faker) {
+            $this->faker = $faker;
 
-        static::$factory->define(
-            $modelFactory->model,
-            function (Faker $faker) use ($modelFactory) {
-                $modelFactory->faker = $faker;
+            return $this->data($faker);
+        });
 
-                return $modelFactory->data($faker);
-            }
-        );
-
-        $factory = factory($modelFactory->model);
-
-        $attributes = [];
-
-        foreach ($params as $param)
-        {
-            if (is_integer($param)) {
-                $factory->times($param);
-            } else {
-                $attributes = array_merge(
-                    $attributes,
-                    $modelFactory->getAttributes($param)
-                );
-            }
-        }
-
-        return $factory->create($attributes);
+        $this->builder = new FactoryBuilder($this);
     }
 
-    public static function id()
+    public function model()
     {
-        return function () {
-            return static::create()->id;
-        };
-    }
-
-    public function getAttributes($param)
-    {
-        if (is_array($param)) {
-            return $param;
+        if (!$this->model) {
+            throw new \Exception('Please define a model in the '.get_class($this).' class');
         }
 
-        $state = 'state'.ucfirst($param);
-
-        if (! method_exists($this, $state)) {
-            throw new \Exception(
-                "The state {$state} does not exist in the factory: ".get_class($this)
-            );
-        }
-
-        return $this->$state();
+        return $this->model;
     }
 
     public function randomString($length = 100)
@@ -87,5 +53,10 @@ class Factory
     public function __call($method, array $attributes = [])
     {
         return $this->faker->$method(...$attributes);
+    }
+
+    public static function __callStatic($method, array $attributes = [])
+    {
+        return (new static)->builder->$method(...$attributes);
     }
 }
