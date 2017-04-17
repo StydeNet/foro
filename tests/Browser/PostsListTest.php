@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use App\Category;
 use App\Post;
 use Carbon\Carbon;
+use CategoryFactory;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -29,20 +30,22 @@ class PostsListTest extends DuskTestCase
 
     function test_a_user_can_see_posts_filtered_by_category()
     {
-        $laravel = factory(Category::class)->create([
-            'name' => 'Laravel', 'slug' => 'laravel'
+        $laravel = CommentFactory::create([
+            'name' => 'Laravel',
+            'slug' => 'laravel',
         ]);
 
-        $vue = factory(Category::class)->create([
-            'name' => 'Vue.js', 'slug' => 'vue-js'
+        $vue = CommentFactory::create([
+            'name' => 'Vue.js',
+            'slug' => 'vue-js',
         ]);
 
-        $laravelPost = factory(Post::class)->create([
+        $laravelPost = PostFactory::create([
             'title' => 'Post de Laravel',
             'category_id' => $laravel->id
         ]);
 
-        $vuePost = factory(Post::class)->create([
+        $vuePost = PostFactory::create([
             'title' => 'Post de Vue.js',
             'category_id' => $vue->id
         ]);
@@ -60,12 +63,12 @@ class PostsListTest extends DuskTestCase
 
     function test_a_user_can_see_posts_filtered_by_status()
     {
-        $pendingPost = factory(Post::class)->create([
+        $pendingPost = PostFactory::create([
             'title' => 'Post pendiente',
             'pending' => true,
         ]);
 
-        $completedPost = factory(Post::class)->create([
+        $completedPost = PostFactory::create([
             'title' => 'Post completado',
             'pending' => false,
         ]);
@@ -83,27 +86,27 @@ class PostsListTest extends DuskTestCase
 
     function test_a_user_can_see_posts_filtered_by_status_and_category()
     {
-        $laravel = factory(Category::class)->create([
+        $laravel = CategoryFactory::create([
             'name' => 'Categoria de Laravel', 'slug' => 'laravel'
         ]);
 
-        $vue = factory(Category::class)->create([
+        $vue = CategoryFactory::create([
             'name' => 'Vue.js', 'slug' => 'vue-js'
         ]);
 
-        $pendingLaravelPost = factory(Post::class)->create([
+        $pendingLaravelPost = PostFactory::create([
             'title' => 'Post pendiente de Laravel',
             'category_id' => $laravel->id,
             'pending' => true,
         ]);
 
-        $pendingVuePost = factory(Post::class)->create([
+        $pendingVuePost = PostFactory::create([
             'title' => 'Post pendiente de Vue.js',
             'category_id' => $vue->id,
             'pending' => true,
         ]);
 
-        $completedPost = factory(Post::class)->create([
+        $completedPost = PostFactory::create([
             'title' => 'Post completado',
             'pending' => false,
         ]);
@@ -122,16 +125,16 @@ class PostsListTest extends DuskTestCase
     function test_the_posts_are_paginated()
     {
         // Having...
-        $first = factory(Post::class)->create([
+        $first = PostFactory::create([
             'title' => 'Post más antiguo',
             'created_at' => Carbon::now()->subDays(2)
         ]);
 
-        $posts = factory(Post::class)->times(15)->create([
+        $posts = PostFactory::create(15, [
             'created_at' => Carbon::now()->subDay()
         ]);
 
-        $last = factory(Post::class)->create([
+        $last = PostFactory::create([
             'title' => 'Post más reciente',
             'created_at' => Carbon::now()
         ]);

@@ -6,12 +6,14 @@ class Factory
 {
     public static $factory;
 
+    public static $currentStates = [];
+
     /**
     * @var \Faker\Generator $faker
     */
     public $faker;
 
-    public static function create(array $attributes = [])
+    public static function create(...$params)
     {
         $modelFactory = new static;
 
@@ -24,7 +26,23 @@ class Factory
             }
         );
 
-        return factory($modelFactory->model)->create($attributes);
+        $factory = factory($modelFactory->model);
+
+        $attributes = [];
+
+        foreach ($params as $param)
+        {
+            if (is_integer($param)) {
+                $factory->times($param);
+            } else {
+                $attributes = array_merge(
+                    $attributes,
+                    $modelFactory->getAttributes($param)
+                );
+            }
+        }
+
+        return $factory->create($attributes);
     }
 
     public static function id()
@@ -32,6 +50,23 @@ class Factory
         return function () {
             return static::create()->id;
         };
+    }
+
+    public function getAttributes($param)
+    {
+        if (is_array($param)) {
+            return $param;
+        }
+
+        $state = 'state'.ucfirst($param);
+
+        if (! method_exists($this, $state)) {
+            throw new \Exception(
+                "The state {$state} does not exist in the factory: ".get_class($this)
+            );
+        }
+
+        return $this->$state();
     }
 
     public function randomString($length = 100)

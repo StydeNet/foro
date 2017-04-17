@@ -11,7 +11,7 @@ class MarkCommentAsAnswerTest extends TestCase
     {
         $post = $this->createPost();
 
-        $comment = factory(Comment::class)->create([
+        $comment = CommentFactory::create([
             'post_id' => $post->id
         ]);
 
@@ -26,7 +26,7 @@ class MarkCommentAsAnswerTest extends TestCase
     {
         $post = $this->createPost();
 
-        $comments = factory(Comment::class)->times(2)->create([
+        $comments = CommentFactory::create(2, [
             'post_id' => $post->id
         ]);
 

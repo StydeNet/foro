@@ -10,7 +10,7 @@ class CommentPolicyTest extends TestCase
 
     function test_the_posts_author_can_select_a_comment_as_an_answer()
     {
-        $comment = factory(Comment::class)->create();
+        $comment = CommentFactory::create();
 
         $policy = new CommentPolicy;
 
@@ -21,7 +21,7 @@ class CommentPolicyTest extends TestCase
 
     function test_non_authors_cannot_select_a_comment_as_an_answer()
     {
-        $comment = factory(Comment::class)->create();
+        $comment = CommentFactory::create();
 
         $policy = new CommentPolicy;
 

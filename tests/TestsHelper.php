@@ -17,13 +17,13 @@ trait TestsHelper
             return $this->defaultUser;
         }
 
-        //return $this->defaultUser = factory(User::class)->create($attributes);
-
         return $this->defaultUser = \UserFactory::create($attributes);
     }
 
     protected function createPost(array $attributes = [])
     {
+        return \PostFactory::create($attributes);
+
         return factory(Post::class)->create($attributes);
     }
 
