@@ -1,27 +1,29 @@
 <?php
-use App\Post;
-use App\User;
+
+use App\{Post, User};
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserModelTest extends TestCase
 {
-    function test_user_owner_of_model_owns_the_model()
-    {
-        $user = new User();
-        $user->id = 1;
+    use DatabaseTransactions;
 
-        $post = new Post();
-        $post->user_id = $user->id;
+    function test_the_model_is_owned_by_the_user()
+    {
+        $user = factory(User::class)->create();
+
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+        ]);
 
         $this->assertTrue($user->owns($post));
     }
 
-    function test_user_non_owner_of_model_does_not_own_the_model()
+    function test_the_model_is_not_owned_by_the_user()
     {
-        $user = new User();
-        $user->id = 1;
+        $user = factory(User::class)->create();
 
-        $post = new Post();
-        $post->user_id = 2;
+        $post = factory(Post::class)->create();
 
         $this->assertFalse($user->owns($post));
     }

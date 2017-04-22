@@ -2,6 +2,7 @@
 
 use App\Post;
 use Carbon\Carbon;
+use tests\FeatureTestCase;
 
 class PostsListTest extends FeatureTestCase
 {
