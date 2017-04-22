@@ -13,9 +13,13 @@
 
         {!! Field::textarea('comment') !!}
 
-        <button type="submit">
-            Publicar comentario
-        </button>
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-4">
+                <button type="submit" class="btn btn-primary">
+                    Publicar Comentario
+                </button>
+            </div>
+        </div>
 
     {!! Form::close() !!}
 @endsection
