@@ -31,10 +31,12 @@ class PostIntegrationTest extends TestCase
         */
     }
 
-    function test_the_url_of_the_post_is_generated()
+    function test_the_generation_of_the_post_url()
     {
         $user = $this->defaultUser();
+
         $post = factory(Post::class)->make();
+
         $user->posts()->save($post);
 
         $this->assertSame(
