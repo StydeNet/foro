@@ -1,5 +1,7 @@
 <?php
 
+use tests\FeatureTestCase;
+
 class CreatePostsTest extends FeatureTestCase
 {
     public function test_a_user_create_a_post()
@@ -29,13 +31,13 @@ class CreatePostsTest extends FeatureTestCase
         $this->see($title);
     }
 
-    function test_creating_a_post_requires_authentication()
+    public function test_creating_a_post_requires_authentication()
     {
         $this->visit(route('posts.create'))
             ->seePageIs(route('login'));
     }
 
-    function test_create_post_form_validation()
+    public function test_create_post_form_validation()
     {
         $this->actingAs($this->defaultUser())
             ->visit(route('posts.create'))
