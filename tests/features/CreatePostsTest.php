@@ -1,5 +1,7 @@
 <?php
 
+use tests\FeatureTestCase;
+
 class CreatePostsTest extends FeatureTestCase
 {
     public function test_a_user_create_a_post()
