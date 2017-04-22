@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\{Post, User};
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -41,6 +41,6 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     protected function createPost(array $attributes = [])
     {
-        return factory(\App\Post::class)->create($attributes);
+        return factory(Post::class)->create($attributes);
     }
 }

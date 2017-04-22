@@ -1,8 +1,10 @@
 <?php
 
+use tests\FeatureTestCase;
+
 class ShowPostTest extends FeatureTestCase
 {
-    function test_a_user_can_see_the_post_details()
+    public function test_a_user_can_see_the_post_details()
     {
         // Having
         $user = $this->defaultUser([
@@ -22,7 +24,7 @@ class ShowPostTest extends FeatureTestCase
             ->see('Duilio Palacios');
     }
 
-    function test_old_urls_are_redirected()
+    public function test_old_urls_are_redirected()
     {
         // Having
         $post = $this->createPost([
