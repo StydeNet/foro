@@ -1,6 +1,7 @@
 <?php
 
 use App\Comment;
+use tests\FeatureTestCase;
 
 class AcceptAnswertTest extends FeatureTestCase
 {
@@ -13,7 +14,7 @@ class AcceptAnswertTest extends FeatureTestCase
         $this->actingAs($comment->post->user);
 
         $this->visit($comment->post->url)
-            ->press('Aceptar respuesta');
+            ->press('Aceptar Respuesta');
 
         $this->seeInDatabase('posts', [
             'id' => $comment->post_id,
