@@ -23,6 +23,6 @@ class CreatePostController extends Controller
 
         auth()->user()->posts()->save($post);
 
-        return "Post: ".$post->title;
+        return "Post: ". $post->title;
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+namespace tests;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class FeatureTestCase extends TestCase
+class FeatureTestCase extends \TestCase
 {
     use DatabaseTransactions;
 
