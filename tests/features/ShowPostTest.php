@@ -1,46 +1,43 @@
 <?php
 
+use tests\FeatureTestCase;
+
 class ShowPostTest extends FeatureTestCase
 {
-    function test_a_user_can_see_the_post_details()
+    public function test_a_user_can_see_the_post_details()
     {
         // Having
         $user = $this->defaultUser([
-            'name' => 'Duilio Palacios',
+            'name'   => 'Crislin Nunez'
         ]);
 
         $post = $this->createPost([
-            'title' => 'Este es el titulo del post',
-            'content' => 'Este es el contenido del post',
-            'user_id' => $user->id,
+            'title'      => 'Este es el titulo del poast',
+            'content'    => 'Este es el contenido del post',
+            'user_id'    => $user->id,
         ]);
 
-        // When
+
+        //When
         $this->visit($post->url)
             ->seeInElement('h1', $post->title)
             ->see($post->content)
-            ->see('Duilio Palacios');
+            ->see('Crislin Nunez');
     }
 
-    function test_old_urls_are_redirected()
+    public function test_old_urls_are_redirected()
     {
         // Having
         $post = $this->createPost([
-            'title' => 'Old title',
+            'title'      => 'Old Title',
         ]);
 
         $url = $post->url;
 
-        $post->update(['title' => 'New title']);
+        $post->update(['title' => 'New Title']);
 
         $this->visit($url)
             ->seePageIs($post->url);
     }
+
 }
-
-
-
-
-
-
-

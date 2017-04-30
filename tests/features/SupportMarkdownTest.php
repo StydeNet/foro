@@ -1,5 +1,8 @@
 <?php
 
+use App\Comment;
+use tests\FeatureTestCase;
+
 class SupportMarkdownTest extends FeatureTestCase
 {
     function test_the_post_content_support_markdown()
@@ -39,7 +42,7 @@ class SupportMarkdownTest extends FeatureTestCase
         $this->visit($post->url)
             ->dontSee($xssAttack)
             ->seeText('Texto normal')
-            ->seeText($xssAttack); //todo: fix this!
+            ->seeText($xssAttack); //Todo: fix this!
     }
 
     function test_xss_attack_with_html()
@@ -52,5 +55,17 @@ class SupportMarkdownTest extends FeatureTestCase
 
         $this->visit($post->url)
             ->dontSee($xssAttack);
+    }
+
+    function test_the_post_comment_support_markdown()
+    {
+        $importantText = 'Laravel 5.3';
+
+        $comment = factory(Comment::class)->create([
+            'comment' => "¿Debo usar **$importantText** o 5.1 LTS?",
+        ]);
+
+        $this->visit($comment->post->url)
+            ->seeInElement('strong', $importantText);
     }
 }

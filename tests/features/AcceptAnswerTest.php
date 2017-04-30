@@ -1,11 +1,11 @@
 <?php
 
-use App\Comment;
-use App\User;
+use App\{Comment,User};
+use tests\FeatureTestCase;
 
-class AcceptAnswertTest extends FeatureTestCase
+class AcceptAnswerTest extends FeatureTestCase
 {
-    function test_the_posts_author_can_accept_a_comment_as_the_posts_answer()
+    function test_the_post_author_can_accept_a_comment_as_the_posts_answer()
     {
         $comment = factory(Comment::class)->create([
             'comment' => 'Esta va a ser la respuesta del post'
@@ -14,11 +14,11 @@ class AcceptAnswertTest extends FeatureTestCase
         $this->actingAs($comment->post->user);
 
         $this->visit($comment->post->url)
-            ->press('Aceptar respuesta');
+            ->press('Aceptar Respuesta');
 
         $this->seeInDatabase('posts', [
-            'id' => $comment->post_id,
-            'pending' => false,
+            'id'        => $comment->post_id,
+            'pending'   => false,
             'answer_id' => $comment->id,
         ]);
 
@@ -26,35 +26,39 @@ class AcceptAnswertTest extends FeatureTestCase
             ->seeInElement('.answer', $comment->comment);
     }
 
-    function test_non_posts_author_dont_see_the_accept_answer_button()
+    function test_non_post_author_not_see_the_accept_answer_button()
     {
         $comment = factory(Comment::class)->create([
             'comment' => 'Esta va a ser la respuesta del post'
         ]);
 
-        $this->actingAs(factory(User::class)->create());
+        $otherUser = factory(User::class)->create();
+
+        $this->actingAs($otherUser);
 
         $this->visit($comment->post->url)
-            ->dontSee('Aceptar respuesta');
+            ->dontSee('Aceptar Respuesta');
     }
 
-    function test_non_posts_author_cannot_accept_a_comment_as_the_posts_answer()
+    function test_non_post_author_cannot_accept_a_comment_as_the_posts_answer()
     {
         $comment = factory(Comment::class)->create([
             'comment' => 'Esta va a ser la respuesta del post'
         ]);
 
-        $this->actingAs(factory(User::class)->create());
+        $otherUser = factory(User::class)->create();
+
+        $this->actingAs($otherUser);
 
         $this->post(route('comments.accept', $comment));
 
         $this->seeInDatabase('posts', [
-            'id' => $comment->post_id,
-            'pending' => true,
+            'id'        => $comment->post_id,
+            'pending'   => true,
         ]);
     }
 
-    function test_the_accept_button_is_hidden_when_the_comment_is_already_the_posts_answer()
+    function test_accept_answer_button_is_hidden_when_the_comment_is_already_the_posts_answer()
     {
         $comment = factory(Comment::class)->create([
             'comment' => 'Esta va a ser la respuesta del post'
@@ -65,6 +69,6 @@ class AcceptAnswertTest extends FeatureTestCase
         $comment->markAsAnswer();
 
         $this->visit($comment->post->url)
-            ->dontSee('Aceptar respuesta');
+            ->dontSee('Aceptar Respuesta');
     }
 }

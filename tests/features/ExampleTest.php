@@ -1,5 +1,7 @@
 <?php
 
+use tests\FeatureTestCase;
+
 class ExampleTest extends FeatureTestCase
 {
 

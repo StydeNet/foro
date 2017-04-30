@@ -2,6 +2,7 @@
 
 namespace App;
 
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -13,9 +14,15 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function markAsAnswer()
     {
         $this->post->pending = false;
+
         $this->post->answer_id = $this->id;
 
         $this->post->save();
@@ -24,5 +31,10 @@ class Comment extends Model
     public function getAnswerAttribute()
     {
         return $this->id === $this->post->answer_id;
+    }
+
+    public function getSafeHtmlCommentAttribute()
+    {
+        return Markdown::convertToHtml(e($this->comment));
     }
 }
