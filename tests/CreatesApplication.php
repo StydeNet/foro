@@ -26,8 +26,6 @@ trait CreatesApplication
 
         $this->baseUrl = $app->make('config')->get('app.url');
 
-        factory(\App\User::class)->make();
-
         return $app;
     }
 }

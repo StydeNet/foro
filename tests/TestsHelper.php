@@ -23,13 +23,11 @@ trait TestsHelper
     protected function createPost(array $attributes = [])
     {
         return \PostFactory::create($attributes);
-
-        return factory(Post::class)->create($attributes);
     }
 
     protected function anyone(array $attributes = [])
     {
-        return factory(User::class)->create($attributes);
+        return \UserFactory::create($attributes);
     }
 
     protected function actingAsAnyone(array $attributes = [])

@@ -1,8 +1,10 @@
 <?php
 
+use App\Post;
+
 class PostFactory extends Factory
 {
-    public $model = \App\Post::class;
+    protected $model = Post::class;
 
     public function data()
     {
@@ -10,8 +12,26 @@ class PostFactory extends Factory
             'title' => $this->sentence,
             'content' => $this->paragraph,
             'pending' => true,
-            'user_id' => UserFactory::lazy()->create(),
-            'category_id' => CategoryFactory::lazy()->create(),
+            'user_id' => function () {
+                return UserFactory::create();
+            },
+            'category_id' => function () {
+                return CategoryFactory::create();
+            }
+        ];
+    }
+
+    public function statePending()
+    {
+        return [
+            'pending' => true
+        ];
+    }
+
+    public function stateCompleted()
+    {
+        return [
+            'pending' => false
         ];
     }
 }

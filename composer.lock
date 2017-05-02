@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2061cfa0a152991aaed547924c7e2bb0",
-    "content-hash": "915ccf7ad2fd5b3764d1b937a520c9cb",
+    "hash": "71352e742bb14ea51e6ed2221af159f2",
+    "content-hash": "32b12573187bf8c7b9772c5a7ce8a566",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -508,16 +508,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.19",
+            "version": "v5.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad"
+                "reference": "2ed668f96d1a6ca42f50d5c87ee9ceecfc0a6eee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/02444b7450350db17a7607c8a52f7268ebdb0dad",
-                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2ed668f96d1a6ca42f50d5c87ee9ceecfc0a6eee",
+                "reference": "2ed668f96d1a6ca42f50d5c87ee9ceecfc0a6eee",
                 "shasum": ""
             },
             "require": {
@@ -633,7 +633,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-04-16 13:33:34"
+            "time": "2017-04-28 15:40:01"
         },
         {
             "name": "laravel/tinker",
@@ -3783,6 +3783,44 @@
             "time": "2016-10-03 07:35:21"
         },
         {
+            "name": "styde/factory",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/StydeNet/factory.git",
+                "reference": "21a5a9336d62ce0ac84ae269cba9065a3e4dca18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/StydeNet/factory/zipball/21a5a9336d62ce0ac84ae269cba9065a3e4dca18",
+                "reference": "21a5a9336d62ce0ac84ae269cba9065a3e4dca18",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "~1.4",
+                "laravel/framework": "5.4.*",
+                "php": ">=  5.6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Styde\\Factory\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Duilio Palacios",
+                    "email": "duilio@styde.net"
+                }
+            ],
+            "description": "Generate and build model factories for Laravel using classes and methods instead of closures",
+            "time": "2017-05-02 11:05:41"
+        },
+        {
             "name": "symfony/yaml",
             "version": "v3.2.7",
             "source": {
@@ -3890,7 +3928,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "styde/factory": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -231,6 +231,7 @@ return [
         'Access' => Styde\Html\Facades\Access::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Factory' => Styde\Factory\Factory::class,
     ],
 
 ];

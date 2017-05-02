@@ -26,7 +26,7 @@ class CommentPolicyTest extends TestCase
         $policy = new CommentPolicy;
 
         $this->assertFalse(
-            $policy->accept(factory(User::class)->create(), $comment)
+            $policy->accept(UserFactory::create(), $comment)
         );
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
-class UserFactory extends Factory
+use App\User;
+
+class UserFactory extends Styde\Factory\Factory
 {
-    public $model = \App\User::class;
+    protected $model = User::class;
 
     public function data()
     {
@@ -11,7 +13,7 @@ class UserFactory extends Factory
             'last_name' => $this->lastName,
             'username' => $this->unique()->userName,
             'email' => $this->unique()->safeEmail,
-            'remember_token' => $this->randomString(10),
+            'remember_token' => str_random(10),
         ];
     }
 }

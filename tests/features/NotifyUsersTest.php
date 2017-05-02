@@ -12,11 +12,11 @@ class NotifyUsersTest extends FeatureTestCase
 
         $post = $this->createPost();
 
-        $subscriber = factory(User::class)->create();
+        $subscriber = UserFactory::create();
 
         $subscriber->subscribeTo($post);
 
-        $writer = factory(User::class)->create();
+        $writer = UserFactory::create();
 
         $writer->subscribeTo($post);
 

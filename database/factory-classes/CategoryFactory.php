@@ -1,8 +1,10 @@
 <?php
 
+use App\Category;
+
 class CategoryFactory extends Factory
 {
-    public $model = \App\Category::class;
+    protected $model = Category::class;
 
     public function data()
     {
@@ -10,7 +12,7 @@ class CategoryFactory extends Factory
 
         return [
             'name' => $name,
-            'slug' => $this->slug($name),
+            'slug' => str_slug($name),
         ];
     }
 }

@@ -9,7 +9,7 @@ class SubscribeToPostsTest extends FeatureTestCase
         // Having
         $post = $this->createPost();
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::create();
 
         $this->actingAs($user);
 
@@ -32,7 +32,7 @@ class SubscribeToPostsTest extends FeatureTestCase
         // Having
         $post = $this->createPost();
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::create();
 
         $user->subscribeTo($post);
 

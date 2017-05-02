@@ -72,14 +72,12 @@ class PostsListTest extends FeatureTestCase
 
     function test_a_user_can_see_posts_filtered_by_status()
     {
-        $pendingPost = PostFactory::create([
+        $pendingPost = PostFactory::states('pending')->create([
             'title' => 'Post pendiente',
-            'pending' => true,
         ]);
 
-        $completedPost = PostFactory::create([
-            'title' => 'Post completado',
-            'pending' => false,
+        $completedPost = PostFactory::states('completed')->create([
+            'title' => 'Post completado'
         ]);
 
         $this->visitRoute('posts.pending')
@@ -129,7 +127,6 @@ class PostsListTest extends FeatureTestCase
 
     function test_the_posts_are_paginated()
     {
-        // Having...
         $first = PostFactory::create([
             'title' => 'Post más antiguo',
             'created_at' => Carbon::now()->subDays(2)

@@ -1,15 +1,21 @@
 <?php
 
+use App\Comment;
+
 class CommentFactory extends Factory
 {
-    public $model = \App\Comment::class;
+    protected $model = Comment::class;
 
     public function data()
     {
         return [
             'comment' => $this->paragraph,
-            'post_id' => PostFactory::lazy()->create(),
-            'user_id' => UserFactory::lazy()->create(),
+            'post_id' => function () {
+                return PostFactory::create();
+            },
+            'user_id' => function () {
+                return UserFactory::create();
+            }
         ];
     }
 }
