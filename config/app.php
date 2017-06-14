@@ -170,7 +170,7 @@ return [
         Styde\Html\HtmlServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
