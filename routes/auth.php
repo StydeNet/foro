@@ -14,15 +14,15 @@ Route::post('posts/create', [
 ]);
 
 // Votes
-Route::post('posts/{post}-{slug}/vote/1', [
+Route::post('posts/{post}/vote/1', [
     'uses' => 'VotePostController@upvote'
 ])->where('post', '\d+');
 
-Route::post('posts/{post}-{slug}/vote/-1', [
+Route::post('posts/{post}/vote/-1', [
     'uses' => 'VotePostController@downvote'
 ])->where('post', '\d+');
 
-Route::delete('posts/{post}-{slug}/vote', [
+Route::delete('posts/{post}/vote', [
     'uses' => 'VotePostController@undoVote'
 ])->where('post', '\d+');
 

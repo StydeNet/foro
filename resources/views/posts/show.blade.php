@@ -20,7 +20,7 @@
                 @endif
             </p>
 
-            <app-vote score="{{ $post->score }}" vote="{{ $post->current_vote }}"></app-vote>
+            {!! $post->vote_component !!}
 
             {!! $post->safe_html_content !!}
 
