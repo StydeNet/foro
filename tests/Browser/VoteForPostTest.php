@@ -21,15 +21,13 @@ class VoteForPostTest extends DuskTestCase
                 ->visit($post->url)
                 ->pressAndWaitFor('+1')
                 ->assertSeeIn('#current-score', 1);
-
-            sleep(2);
-
-            $this->assertDatabaseHas('posts', [
-                'id' => $post->id,
-                'score' => 1,
-            ]);
-
-            $this->assertSame(1, $post->getVoteFrom($user));
         });
+
+        $this->assertDatabaseHas('posts', [
+            'id' => $post->id,
+            'score' => 1,
+        ]);
+
+        $this->assertSame(1, $post->getVoteFrom($user));
     }
 }
