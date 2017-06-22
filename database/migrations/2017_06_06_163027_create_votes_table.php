@@ -19,8 +19,12 @@ class CreateVotesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts');
+            // votable
+
+            $table->unsignedInteger('votable_id')->index();
+            $table->string('votable_type', 20)->index();
+
+            $table->unique(['user_id', 'votable_id', 'votable_type']);
 
             $table->tinyInteger('vote');
 
