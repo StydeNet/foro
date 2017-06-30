@@ -10,7 +10,7 @@
         "graham-campbell/markdown": "^7.0",
         "laravel/browser-kit-testing": "^1.0",
         "laravel/dusk": "^1.0",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.4.x-dev@dev",
         "laravel/tinker": "~1.0",
         "styde/html": "~1.3"
     },

@@ -13,6 +13,9 @@ class ListPostController extends Controller
 
         $posts = Post::query()
             ->with(['user', 'category'])
+            ->when(auth()->check(), function ($q) {
+                $q->with(['userVote']);
+            })
             ->category($category)
             ->scopes($this->getRouteScope($request))
             ->orderBy($orderColumn, $orderDirection)
