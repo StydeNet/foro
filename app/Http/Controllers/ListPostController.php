@@ -22,7 +22,19 @@ class ListPostController extends Controller
             ->paginate()
             ->appends($request->intersect(['orden']));
 
-        return view('posts.index', compact('posts', 'category'));
+        $status = $this->getStatus($request);
+
+        return view('posts.index', compact('posts', 'category', 'status'));
+    }
+
+    protected function getStatus(Request $request)
+    {
+        $routes = [
+            'posts.pending' => 'pendientes',
+            'posts.completed' => 'completados',
+        ];
+
+        return $routes[$request->route()->getName()] ?? '';
     }
 
     protected function getRouteScope(Request $request)

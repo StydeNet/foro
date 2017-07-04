@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>
-                {{ $category->exists ? 'Posts de '.$category->name : 'Posts' }}
+                Posts {{ $category->exists ? "{$status} de {$category->name}" : '' }}
             </h1>
         </div>
     </div>
