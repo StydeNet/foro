@@ -12,6 +12,8 @@ class ShowPostController extends Controller
             return redirect($post->url, 301);
         }
 
+        $post->load('latestComments.userVote', 'latestComments.post');
+
         return view('posts.show', compact('post'));
     }
 }
