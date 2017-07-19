@@ -16,7 +16,7 @@ class ListPostController extends Controller
             ->when(auth()->check(), function ($q) {
                 $q->with(['userVote']);
             })
-            ->category($category)
+            ->fromCategory($category)
             ->scopes($this->getRouteScope($request))
             ->orderBy($orderColumn, $orderDirection)
             ->paginate()
