@@ -39,14 +39,14 @@ trait CanBeVoted
      */
     public function getVoteComponentAttribute()
     {
-
+        if (auth()->check()) {
             return Html::tag('app-vote', '', [
                 'module' => $this->getTable(), // posts or comments
                 'id' => $this->id,
                 'score' => $this->score,
                 'vote' => $this->current_vote
             ]);
-
+        }
     }
     
     public function upvote()

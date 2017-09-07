@@ -1,7 +1,7 @@
 <?php
 
 // Routes that require authentication.
-Route::post('logout', 'Auth\LoginController@logout');
+Route::post('logout', 'LoginController@logout');
 
 // Posts
 Route::get('posts/create', [
