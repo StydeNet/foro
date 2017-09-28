@@ -151,4 +151,15 @@ class PostsListTest extends FeatureTestCase
             ->see($first->title)
             ->dontSee($last->title);
     }
+
+    function test_show_message_if_there_are_not_posts_in_a_category_or_filter()
+    {
+        $category = factory(Category::class)->create();
+
+        $message = 'No se han encontrado posts';
+
+        $this->visitRoute('posts.index', $category)->see($message);
+
+        $this->visitRoute('posts.pending')->see($message);
+    }
 }

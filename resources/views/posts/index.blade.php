@@ -23,7 +23,7 @@
                 <button type="submit" class="btn btn-default">Ordenar</button>
             {!! Form::close() !!}
 
-            @each('posts.item', $posts, 'post')
+            @each('posts.item', $posts, 'post', 'posts.empty')
 
             {{ $posts->render() }}
         </div>
