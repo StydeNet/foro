@@ -30,6 +30,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);

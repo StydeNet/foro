@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8">
             <p>
-                Publicado por <a href="#">{{ $post->user->name }}</a>
+                Publicado por <a href="{{ route('users.show', $post->user) }}">{{ $post->user->name }}</a>
                 {{ $post->created_at->diffForHumans() }}
                 en <a href="{{ $post->category->url }}">{{ $post->category->name }}</a>.
                 @if ($post->pending)
