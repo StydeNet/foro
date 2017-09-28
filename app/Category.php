@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getUrlAttribute()
+    {
+        return route('posts.index', $this->slug);
+    }
 }
