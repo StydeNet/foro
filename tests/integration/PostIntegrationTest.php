@@ -42,4 +42,12 @@ class PostIntegrationTest extends TestCase
             route('posts.show', [$post->id, $post->slug])
         );
     }
+
+    /** @test */
+    function test_a_post_url_is_generated_correctly()
+    {
+        $post = factory(Post::class)->create();
+
+        $this->assertSame($post->url , env('APP_URL').'/posts/'.$post->id.'-'.$post->slug);
+    }
 }
