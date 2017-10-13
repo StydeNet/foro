@@ -48,6 +48,6 @@ class PostIntegrationTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $this->assertSame($post->url , route('posts.show', [$post->id, $post->slug]));
+        $this->assertSame($post->url , env('APP_URL').'/posts/'.$post->id.'-'.$post->slug);
     }
 }
