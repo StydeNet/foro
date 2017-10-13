@@ -19,12 +19,14 @@
 
     {!! Form::close() !!}
 
-    @foreach($post->latestComments as $comment)
+    @foreach($comments as $comment)
         <article class="{{ $comment->answer ? 'answer' : '' }}">
+            <h4>{{ $comment->user->name }}</h4>
             {{ $comment->comment }}
             {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}
             <button type="submit">Aceptar respuesta</button>
             {!! Form::close() !!}
         </article>
     @endforeach
+    {{ $comments->render() }}
 @endsection

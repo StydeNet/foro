@@ -19,6 +19,9 @@ class PostController extends Controller
             return redirect($post->url, 301);
         }
 
-        return view('posts.show', compact('post'));
+        return view('posts.show', [
+            'post' => $post,
+            'comments' => $post->latestComments()->paginate(15)
+        ]);
     }
 }

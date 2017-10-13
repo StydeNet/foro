@@ -24,4 +24,34 @@ class AcceptAnswertTest extends FeatureTestCase
         $this->seePageIs($comment->post->url)
             ->seeInElement('.answer', $comment->comment);
     }
+
+    /** @test */
+    function test_comments_list_are_paginated()
+    {
+        $post = $this->createPost();
+
+        $first_comment = factory(Comment::class)->create([
+            'comment' => 'Este es el primer comentario',
+            'post_id' => $post->id,
+            'created_at' => \Carbon\Carbon::now()->subDays(5),
+        ]);
+
+        factory(Comment::class)->times(15)->create([
+            'post_id' => $post->id,
+            'created_at' => \Carbon\Carbon::now()->subDays(1),
+        ]);
+
+        $last_comment = factory(Comment::class)->create([
+            'comment' => 'Este es el ultimo comentario',
+            'post_id' => $post->id,
+            'created_at' => \Carbon\Carbon::now()->now(),
+        ]);
+
+        $this->visit($post->url)
+            ->see($last_comment->comment)
+            ->dontSee($first_comment->comment)
+            ->click('2')
+            ->see($first_comment->comment)
+            ->dontSee($last_comment->comment);
+    }
 }

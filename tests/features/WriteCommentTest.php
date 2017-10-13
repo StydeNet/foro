@@ -25,4 +25,28 @@ class WriteCommentTest extends FeatureTestCase
 
         $this->seePageIs($post->url);
     }
+
+    /** @test */
+    function test_can_see_a_comment_autor()
+    {
+        $post = $this->createPost();
+
+        $user = $this->defaultUser();
+
+        $partaker = factory(\App\User::class)->create([
+            'name' => 'Duilio Palcios'
+        ]);
+
+        $comment = factory(\App\Comment::class)->create([
+            'comment' => 'Este comentario es el mas genial',
+            'post_id' => $post->id,
+            'user_id' => $partaker->id,
+        ]);
+
+        $this->actingAs($user)
+            ->visit($post->url)
+            ->seeInElement('h1', $post->title)
+            ->see($comment->comment)
+            ->seeInElement('h4','Duilio Palcios');
+    }
 }
