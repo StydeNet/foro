@@ -26,7 +26,7 @@
 
             {{-- todo: support markdown in the comments as well! --}}
 
-            {{ $comment->comment }}
+            {!! mySaveHtml($comment->comment) !!}
 
             @if(Gate::allows('accept', $comment) && !$comment->answer)
             {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}

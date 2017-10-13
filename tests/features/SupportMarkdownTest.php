@@ -2,16 +2,23 @@
 
 class SupportMarkdownTest extends FeatureTestCase
 {
-    function test_the_post_content_support_markdown()
+    function test_the_post_content_and_comment_support_markdown()
     {
         $importantText = 'Un texto muy importante';
+        $importantTextInComment = 'Otro texto muy importante';
 
         $post = $this->createPost([
             'content' => "La primera parte del texto. **$importantText**. La última parte del texto"
         ]);
 
+        factory(\App\Comment::class)->create([
+            'post_id' => $post->id,
+            'comment' => "Este comentario tambien tiene **$importantTextInComment**."
+        ]);
+
         $this->visit($post->url)
-            ->seeInElement('strong', $importantText);
+            ->seeInElement('strong', $importantText)
+            ->seeInElement('strong', $importantTextInComment);
     }
 
     function test_the_code_in_the_post_is_escaped()

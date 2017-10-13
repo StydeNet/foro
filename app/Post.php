@@ -43,6 +43,6 @@ class Post extends Model
 
     public function getSafeHtmlContentAttribute()
     {
-        return Markdown::convertToHtml(e($this->content));
+        return mySaveHtml($this->content);
     }
 }
