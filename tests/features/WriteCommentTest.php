@@ -26,7 +26,10 @@ class WriteCommentTest extends FeatureTestCase
         $this->seePageIs($post->url);
     }
 
-    function test_create_comment_form_validation(){
+    function test_create_comment_form_validation()
+    {
+        $this->handleValidationExceptions();
+
         $post = $this->createPost();
 
         $user = $this->defaultUser();

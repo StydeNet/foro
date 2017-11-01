@@ -1,12 +1,20 @@
 <?php
 
+use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Tests\TestsHelper;
 use Tests\CreatesApplication;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FeatureTestCase extends \Laravel\BrowserKitTesting\TestCase
 {
-    use CreatesApplication, TestsHelper, DatabaseTransactions;
+    use CreatesApplication, TestsHelper, DatabaseTransactions, InteractsWithExceptionHandling;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->withoutExceptionHandling();
+    }
 
     public function seeErrors(array $fields)
     {

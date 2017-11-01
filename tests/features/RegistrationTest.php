@@ -48,6 +48,8 @@ class RegistrationTest extends FeatureTestCase
 
     function test_create_user_form_validation()
     {
+        $this->handleValidationExceptions();
+
         $this->visitRoute('register')
             ->press('Regístrate')
             ->seePageIs('/register')
@@ -61,6 +63,8 @@ class RegistrationTest extends FeatureTestCase
 
     function test_create_user_must_register_unique_email()
     {
+        $this->handleValidationExceptions();
+
         $this->anyone([
             'email' => 'admin@styde.net'
         ]);
@@ -79,6 +83,8 @@ class RegistrationTest extends FeatureTestCase
 
     function test_create_user_must_register_unique_username()
     {
+        $this->handleValidationExceptions();
+
         $this->anyone([
             'username' => 'silence'
         ]);

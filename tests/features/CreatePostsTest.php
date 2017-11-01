@@ -45,12 +45,16 @@ class CreatePostsTest extends FeatureTestCase
 
     function test_creating_a_post_requires_authentication()
     {
+        $this->handleAuthenticationExceptions();
+
         $this->visit(route('posts.create'))
             ->seePageIs(route('token'));
     }
 
     function test_create_post_form_validation()
     {
+        $this->handleValidationExceptions();
+
         $this->actingAs($this->defaultUser())
             ->visit(route('posts.create'))
             ->press('Publicar')

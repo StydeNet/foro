@@ -79,6 +79,8 @@ class VoteForPostTest extends TestCase
 
     function test_a_guest_user_cannot_vote_for_a_post()
     {
+        $this->handleAuthenticationExceptions();
+
         $user = $this->defaultUser();
 
         $post = $this->createPost();

@@ -3,6 +3,8 @@
 namespace Tests;
 
 use App\{Post, User};
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 trait TestsHelper
 {
@@ -35,5 +37,19 @@ trait TestsHelper
         $user = $this->anyone($attributes);
         $this->actingAs($user);
         return $user;
+    }
+
+    protected function handleAuthenticationExceptions()
+    {
+        $this->withoutExceptionHandling([
+            AuthenticationException::class
+        ]);
+    }
+
+    protected function handleAuthorizationExceptions()
+    {
+        $this->withoutExceptionHandling([
+            AuthorizationException::class
+        ]);
     }
 }

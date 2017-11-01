@@ -40,6 +40,8 @@ class AcceptAnswertTest extends FeatureTestCase
 
     function test_non_posts_author_cannot_accept_a_comment_as_the_posts_answer()
     {
+        $this->handleAuthorizationExceptions();
+
         $comment = factory(Comment::class)->create([
             'comment' => 'Esta va a ser la respuesta del post'
         ]);

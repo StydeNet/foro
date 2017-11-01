@@ -53,6 +53,8 @@ class CreatePostsTest extends DuskTestCase
 
     function test_creating_a_post_requires_authentication()
     {
+        $this->handleAuthenticationExceptions();
+
         $this->browse(function ($browser) {
             $browser->visitRoute('posts.create')
                 ->assertRouteIs('token');
