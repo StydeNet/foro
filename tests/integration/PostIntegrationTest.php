@@ -31,15 +31,21 @@ class PostIntegrationTest extends TestCase
         */
     }
 
-    function test_the_url_of_the_post_is_generated()
-    {
-        $user = $this->defaultUser();
-        $post = factory(Post::class)->make();
-        $user->posts()->save($post);
+    function test_actividad_leccion_14_comprobar_url_generada(){
 
-        $this->assertSame(
-            $post->url,
-            route('posts.show', [$post->id, $post->slug])
-        );
+        //having
+        $post = $this->createPost([
+            'title' => 'Actividad lección 14',
+        ]);
+
+        $id = $post->id;
+        $slug = Str::slug($post->title);
+
+        //when
+        $url = $post->url;
+
+        //then
+        $this->assertSame( $url, route('posts.show', [$id, $slug]) );
+
     }
 }
