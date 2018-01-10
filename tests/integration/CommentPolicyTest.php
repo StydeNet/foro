@@ -1,6 +1,6 @@
 <?php
 
-use App\{Comment, User};
+use App\{Comment, User, Post};
 use App\Policies\CommentPolicy;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -28,5 +28,21 @@ class CommentPolicyTest extends TestCase
         $this->assertFalse(
             $policy->accept(factory(User::class)->create(), $comment)
         );
+    }
+    
+  
+    function test_user_method_owns(){
+
+        $comment = factory(Comment::class)->create();
+        $userMakeComment = User::find($comment->user_id);
+        $post = factory(Post::class)->create();
+        $userMakePost = $post->user;
+
+        $user = $this->defaultUser();
+        $this->assertTrue( $userMakeComment->owns($comment) );
+        $this->assertTrue( $userMakePost->owns($post) );
+        $this->assertFalse( $user->owns($comment) );
+        $this->assertFalse( $user->owns($post) );
+
     }
 }
