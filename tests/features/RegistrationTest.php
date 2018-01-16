@@ -45,6 +45,32 @@ class RegistrationTest extends FeatureTestCase
             ->see('Gracias por registrarte')
             ->see('Enviamos a tu email un enlace para que inicies sesión');
     }
+    
+    // test de validación del formulario de registro
+
+    function test_fill_all_inputs_of_register_form(){
+
+        $this->visitRoute('register')
+            ->press('Regístrate')
+            ->seeErrors([
+                'username' => 'El campo usuario es obligatorio',
+                'email' => 'El campo correo electrónico es obligatorio',
+                'first_name' => 'El campo nombre es obligatorio',
+                'last_name' => 'El campo apellido es obligatorio'
+        ]);
+    }
+
+    function test_email_have_correct_format(){
+        $this->visitRoute('register')
+            ->type("josefk@gmail", 'email')
+            ->type('josefk', 'username' )
+            ->type('Josep', 'first_name')
+            ->type('Sellés', 'last_name')
+            ->press('Regístrate')
+            ->seeErrors([
+                'email' => 'El correo electrónico no es un correo válido',
+            ]);
+    }
 }
 
 
