@@ -12,12 +12,23 @@ class RegisterController extends Controller
         return view('register/create');
     }
 
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //todo: add validation!
+        $this->validate( $req,[
+            'username' => 'required',
+            'email' => 'required|email',
+            'first_name' => 'required',
+            'last_name' => 'required'
+        ]);
 
-        $user = User::create($request->all());
+        $user = User::create($req->all());
 
         Token::generateFor($user)->sendByEmail();
+
+        return redirect( 'register-confirmation' );
+    }
+
+    public function confirmation(){
+        return view('register/confirmation');
     }
 }
