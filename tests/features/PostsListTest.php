@@ -74,4 +74,41 @@ class PostsListTest extends FeatureTestCase
             ->see($first->title)
             ->dontSee($last->title);
     }
+    
+    function test_scope_category_of_post_is_working_correctly()
+    {
+        $laravel = factory(Category::class)->create([
+            'name' => 'Laravel', 'slug' => 'laravel'
+        ]);
+
+        $vue  = factory(Category::class)->create([
+            'name' => 'Vue.js', 'slug' => 'vue-js'
+        ]);
+
+        $laravelPost = factory(Post::class)->create([
+            'title' => 'Entrada de Laravel',
+            'category_id' => $laravel->id,
+        ]);
+
+        $laravelPost2 = factory(Post::class)->create([
+            'title' => 'Entrada de Laravel 2',
+            'category_id' => $laravel->id,
+        ]);
+
+        $vuePost = factory(Post::class)->create([
+            'title' => 'Post de Vue.js',
+            'category_id' => $vue->id,
+        ]);
+
+        $this->visit('/' .$laravel->slug)
+            ->see($laravelPost->title)
+            ->see($laravelPost2->title)
+            ->dontSee($vuePost->title);
+
+        $this->visit('/' .$vue->slug)
+            ->dontSee($laravelPost->title)
+            ->dontSee($laravelPost2->title)
+            ->see($vuePost->title);
+    }
+    
 }
